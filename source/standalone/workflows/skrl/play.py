@@ -21,7 +21,7 @@ from datetime import datetime
 parser = argparse.ArgumentParser(description="Play a checkpoint of an RL agent from skrl.")
 parser.add_argument("--video", action="store_true", default=False, help="Record videos during playing.")
 parser.add_argument("--enable_cameras", action="store_true", default=False, help="Enable cameras during playing.")
-parser.add_argument("--video_save_path", type=str, default=None, help="Path to save the recorded videos.")
+parser.add_argument("--recording_dir", type=str, default=None, help="Path to save the recorded videos.")
 parser.add_argument("--video_length", type=int, default=200, help="Length of the recorded video (in steps).")
 parser.add_argument("--video_interval", type=int, default=2000, help="Interval between video recordings (in steps).")
 parser.add_argument("--cpu", action="store_true", default=False, help="Use CPU pipeline.")
@@ -87,7 +87,7 @@ def main():
     # wrap for video recording
     if args_cli.video:
         video_kwargs = {
-            "video_folder": os.path.join(log_dir, "videos") if args_cli.video_save_path is None else args_cli.video_save_path,
+            "video_folder": os.path.join(log_dir, "videos") if args_cli.recording_dir is None else args_cli.recording_dir,
             "step_trigger": lambda step: step % args_cli.video_interval == 0,
             "video_length": args_cli.video_length,
             "disable_logger": True,
